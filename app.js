@@ -35,7 +35,7 @@ app.get("/planes", (req, res) => {
   epayco.plans
     .list()
     .then(function (plans) {
-      console.log(plans);
+      // console.log(plans);
       res.send(plans.data);
     })
     .catch(function (err) {
