@@ -8,30 +8,14 @@ var epayco = require("epayco-sdk-node")({
   lang: "ES",
   test: true,
 });
-
 // endepayco
 
 const app = express();
 const port = 1724;
 
-// app.use(
-//   express.urlencoded({
-//     extended: true,
-//   })
-// );
-
-// app.use(
-//   express.json({
-//     type: "*/*",
-//   })
-// );
-
 app.use(cors());
 
 app.get("/planes", (req, res) => {
-  // res.send("Me hicieron un get");
-  // console.log("Me hicieron un get");
-
   epayco.plans
     .list()
     .then(function (plans) {
@@ -49,5 +33,5 @@ app.post("/planes", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Listen in http://localhost:${port}`);
+  console.log(`Listening in http://localhost:${port}`);
 });
