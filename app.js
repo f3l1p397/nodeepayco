@@ -85,7 +85,7 @@ app.post("/planes", (req, res) => {
   function createSuscription() {
     //data suscription
     var subscription_info = {
-      id_plan: "Plan_de_Plata",
+      id_plan: "PlanPlata",
       customer: clienteID,
       token_card: tokenCard,
       doc_type: "CC",
@@ -111,7 +111,7 @@ app.post("/planes", (req, res) => {
   function paySuscription() {
     // data pay
     var subscription_pay = {
-      id_plan: "Plan_de_Plata",
+      id_plan: "PlanPlata",
       customer: clienteID,
       token_card: tokenCard,
       doc_type: "CC",
@@ -132,7 +132,7 @@ app.post("/planes", (req, res) => {
   }
 
   // console.log(req.body);
-  res.send("Me realizando pago");
+  res.send("Realizando pago");
 });
 
 app.listen(port, () => {
