@@ -62,7 +62,7 @@ app.post("/planes", (req, res) => {
       email: req.body.email,
       default: true,
       //Optional parameters: These parameters are important when validating the credit card transaction
-      city: "Bogota",
+      city: req.body.ciudad,
       address: "Cr 4 # 55 36",
       phone: "3123456765",
       cell_phone: "3010750001",
