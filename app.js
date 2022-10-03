@@ -114,6 +114,9 @@ app.post("/planes", (req, res) => {
       doc_type: "CC",
       doc_number: req.body.identificacion,
       ip: "201.182.250.134" /*This is the client's IP, it is required */,
+      url_response: "http://localhost:3000/confirmation",
+      url_confirmation: "http://localhost:3000/confirmation",
+      method_confirmation: "GET",
     };
 
     // pay suscription
@@ -122,6 +125,7 @@ app.post("/planes", (req, res) => {
       .then(function (subscription) {
         console.log("4 -> pay suscription: ");
         console.log("resume", subscription.data);
+        res.send(subscription);
       })
       .catch(function (err) {
         console.log("err: " + err);
@@ -129,7 +133,7 @@ app.post("/planes", (req, res) => {
   }
 
   // console.log(req.body);
-  res.send("Procesando pago");
+  // res.send("Procesando pago");
 });
 
 app.listen(port, () => {
