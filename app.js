@@ -44,8 +44,7 @@ app.post("/planes", (req, res) => {
   epayco.token
     .create(credit_info)
     .then(function (token) {
-      console.log("token");
-      console.log(token);
+      console.log("1 -> token");
       tokenCard = token.id;
       createCustomer();
     })
@@ -63,17 +62,16 @@ app.post("/planes", (req, res) => {
       default: true,
       //Optional parameters: These parameters are important when validating the credit card transaction
       city: req.body.ciudad,
-      address: "Cr 4 # 55 36",
-      phone: "3123456765",
-      cell_phone: "3010750001",
+      address: "",
+      phone: req.body.telefono,
+      cell_phone: req.body.telefono,
     };
 
     // create customer
     epayco.customers
       .create(customer_info)
       .then(function (customer) {
-        console.log("customer");
-        console.log(customer);
+        console.log("2 -> customer");
         clienteID = customer.data.customerId;
         createSuscription();
       })
@@ -85,11 +83,11 @@ app.post("/planes", (req, res) => {
   function createSuscription() {
     //data suscription
     var subscription_info = {
-      id_plan: "PlanPlata",
+      id_plan: req.body.ePlan,
       customer: clienteID,
       token_card: tokenCard,
       doc_type: "CC",
-      doc_number: "5234567",
+      doc_number: req.body.identificacion,
       //Optional parameter: if these parameter it's not send, system get ePayco dashboard's url_confirmation
       url_confirmation: "https://ejemplo.com/confirmacion",
       method_confirmation: "POST",
@@ -99,8 +97,7 @@ app.post("/planes", (req, res) => {
     epayco.subscriptions
       .create(subscription_info)
       .then(function (subscription) {
-        console.log("suscription");
-        console.log(subscription);
+        console.log("3 -> suscription");
         paySuscription();
       })
       .catch(function (err) {
@@ -111,11 +108,11 @@ app.post("/planes", (req, res) => {
   function paySuscription() {
     // data pay
     var subscription_pay = {
-      id_plan: "PlanPlata",
+      id_plan: req.body.ePlan,
       customer: clienteID,
       token_card: tokenCard,
       doc_type: "CC",
-      doc_number: "5234567",
+      doc_number: req.body.identificacion,
       ip: "201.182.250.134" /*This is the client's IP, it is required */,
     };
 
@@ -123,8 +120,8 @@ app.post("/planes", (req, res) => {
     epayco.subscriptions
       .charge(subscription_pay)
       .then(function (subscription) {
-        console.log("pay suscription");
-        console.log(subscription);
+        console.log("4 -> pay suscription: ");
+        console.log("resume", subscription.data);
       })
       .catch(function (err) {
         console.log("err: " + err);
@@ -132,7 +129,7 @@ app.post("/planes", (req, res) => {
   }
 
   // console.log(req.body);
-  res.send("Realizando pago");
+  res.send("Procesando pago");
 });
 
 app.listen(port, () => {
