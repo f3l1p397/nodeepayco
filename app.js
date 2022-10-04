@@ -125,7 +125,7 @@ app.post("/planes", (req, res) => {
       .then(function (subscription) {
         console.log("4 -> pay suscription: ");
         console.log("resume", subscription.data);
-        res.send(subscription);
+        res.send(subscription.data);
       })
       .catch(function (err) {
         console.log("err: " + err);
