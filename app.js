@@ -33,11 +33,16 @@ app.get("/planes", (req, res) => {
 
 app.post("/planes", (req, res) => {
   //data card
+  console.log("llegando:", req.body);
   var credit_info = {
-    "card[number]": "4575623182290326",
-    "card[exp_year]": "2025",
-    "card[exp_month]": "12",
-    "card[cvc]": "123",
+    // "card[number]": "4575623182290326",
+    // "card[exp_year]": "2025",
+    // "card[exp_month]": "12",
+    // "card[cvc]": "123",
+    "card[number]": req.body.tarjeta,
+    "card[exp_year]": req.body.year,
+    "card[exp_month]": req.body.mes,
+    "card[cvc]": req.body.cvc,
   };
 
   //create token
@@ -46,7 +51,9 @@ app.post("/planes", (req, res) => {
     .then(function (token) {
       console.log("1 -> token");
       tokenCard = token.id;
-      createCustomer();
+      // createCustomer();
+      console.log("el id: ", token.id);
+      res.send(token.id);
     })
     .catch(function (err) {
       console.log("err: " + err);
